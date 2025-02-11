@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Otto</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*height: 90vh;*/
+            /*flex-direction: row;*/
+            /*flex-direction: column;*/
+            /*overflow: scroll;*/
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            padding: 50px;
+        }
+        .left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            margin: 30px;
+        }
+        .right {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* grid-template-rows: repeat(3, 1fr); */
+            gap: 5px;
+            margin: 30px;
+        }
+        .top-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .middle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .left .button {
+            width: 150px;
+            height: 150px;
+            font-size: 60px;
+        }
+        .right .button {
+            width: 220px;
+            height: 100px;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='left'>
+            <div class='button' id="forward">▴</div>
+            <div class='middle-row'>
+                <div class='button direction' id="turn_L">◂</div>
+                <div class='button direction' id="home">●</div>
+                <div class='button direction' id="turn_R">▸</div>
+            </div>
+            <div class='button' id="backward">▾</div>
+        </div>
+        <div class='right'>
+            <div class='button' id='hello'>Hello</div>
+            <div class='button' id='omni_walk'>OmniWalk</div>
+            <div class='button' id='moonwalk_L'>Moonwalk</div>
+            <div class='button' id='dance'>Dance</div>
+            <div class='button' id='up_down'>UpDown</div>
+            <div class='button' id='push_up'>PushUp</div>
+            <div class='button' id='front_back'>FrontBack</div>
+            <div class='button' id='wave_hand'>WaveHand</div>
+            <div class='button' id='hide'>Hide</div>
+            <div class='button' id='scared'>Scared</div>
+        </div>
+    </div>
+
+    <script >
+
+        function buttonClick(c) {
+            fetch('/control', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: c })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+        }
+
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', () => buttonClick(button.id));
+            console.log(button.id)
+        });
+
+    </script>
+
+</body>
+</html>
+
