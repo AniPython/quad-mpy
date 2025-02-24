@@ -1,3 +1,8 @@
+"""
+1. 测试 180 度舵机
+2. 把舵机转到 90 度
+"""
+
 from machine import Pin, PWM
 import time
 
