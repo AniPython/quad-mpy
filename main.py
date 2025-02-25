@@ -1,3 +1,24 @@
+"""
+舵机与 esp32 引脚接线图, 数据口方向为后 (tail)
+
+    前 (head)
+        -----               -----
+        |  2  |             |  3  |
+        |pin25|             |Pin18|
+        ----- -----   ----- -----
+            |  0  | |  1  |
+            |Pin12| |Pin16|
+             -----   -----
+            |  4  | |  5  |
+            |Pin13| |Pin17|
+        ----- -----   ----- -----
+        |  6  |             |  7  |
+        |Pin26|             |Pin19|
+        -----               -----
+    后 (tail)
+"""
+
+
 from quad import Quad
 from robot_wifi import RobotWifi
 
