@@ -20,7 +20,7 @@ class RobotWifi:
         if ifconfig:
             ap.ifconfig(ifconfig)
         ap.active(True)
-        ap.config(essid=essid, password=password)
+        ap.config(essid=essid, password=password, authmode=network.AUTH_WPA_WPA2_PSK)
         print('Access Point created!')
         machine.PWM(machine.Pin(2), duty=512)
         ip = ap.ifconfig()[0]

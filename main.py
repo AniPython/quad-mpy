@@ -31,10 +31,9 @@ robot.setTrims(0, 0, 0, 0, 0, 0, 0, 0)
 robot_wifi = RobotWifi(robot=robot)
 
 # AP模式
-# dog_wifi.create_connect_ap(essid="OttoDiyWifi", password="88889999", ifconfig=ifconfig)
+# robot_wifi.create_connect_ap(essid="OttoDiyWifi", password="88889999", ifconfig=ifconfig)
 
 # 路由模式
-robot_wifi.create_connect_route(ssid='小亦站', password='88889999', ifconfig=ifconfig)
+robot_wifi.create_connect_route(ssid='wifi_name', password='wifi_password', ifconfig=ifconfig)
 
 robot_wifi.create_server()
-
