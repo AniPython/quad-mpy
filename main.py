@@ -30,10 +30,10 @@ robot.setTrims(0, 0, 0, 0, 0, 0, 0, 0)
 
 robot_wifi = RobotWifi(robot=robot)
 
-# AP模式
-# robot_wifi.create_connect_ap(essid="OttoDiyWifi", password="88889999", ifconfig=ifconfig)
+# AP模式(没有路由使用这种模式, 这时候 esp32 变成了一个热点, 手机或电脑连接这个热点, 即可控制机器人)
+# robot_wifi.create_connect_ap(essid="Otto", password="88889999", ifconfig=ifconfig)
 
-# 路由模式
+# 路由模式(局域网内的手机或电脑都可以通过 wifi 控制机器人)
 robot_wifi.create_connect_route(ssid='wifi_name', password='wifi_password', ifconfig=ifconfig)
 
 robot_wifi.create_server()
