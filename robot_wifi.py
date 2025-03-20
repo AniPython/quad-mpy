@@ -51,13 +51,14 @@ class RobotWifi:
         command = json.loads(post_data).get("command")
         if command:
             try:
+                print(command)
                 method = getattr(self.robot, command)
                 method()
-                return 'OK'
+                return json.dumps({"status": "200", "msg": command})
             except Exception as e:
                 err = "Error executing command:" + str(e)
                 print(err)
-                return err
+                return json.dumps({"status": "500", "msg": err})
 
     def handle_get_request(self):
         response_headers = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n'
