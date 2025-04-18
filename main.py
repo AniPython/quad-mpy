@@ -34,6 +34,6 @@ robot_wifi = RobotWifi(robot=robot)
 # robot_wifi.create_connect_ap(essid="Otto", password="88889999", ifconfig=ifconfig)
 
 # 路由模式(局域网内的手机或电脑都可以通过 wifi 控制机器人)
-robot_wifi.create_connect_route(ssid='wifi_name', password='wifi_password', ifconfig=ifconfig)
+robot_wifi.create_connect_route(ssid='小亦站', password='88889999', ifconfig=ifconfig)
 
 robot_wifi.create_server()
