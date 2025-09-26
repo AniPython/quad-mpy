@@ -2,7 +2,6 @@
 
 ## 相关链接
 - **本项目的 arduino-wifi 版本**: [仓库链接](https://github.com/AniPython/quad-arduino-wifi)
-- **拼多多**: [商品链接](https://mobile.yangkeduo.com/goods2.html?goods_id=703833751916)
 - **B站**: [视频链接](https://b23.tv/kzp9yXQ)
 
 ## `main.py` 文件中 wifi 信息修改说明
