@@ -10,10 +10,12 @@ class RobotWifi:
 
     def __init__(self, robot, html_path='index.html'):
         self.robot = robot
-        with open(html_path, 'r', encoding='utf-8') as file:
-            self.html = file.read()
+        try:
+            with open(html_path, 'r', encoding='utf-8') as file:
+                self.html = file.read()
+        except OSError as e:
+            assert False, f"错误: 无法打开文件 '{html_path}' - {e}. 请不要忘记上传 index.html"
 
-    # 创建并启动热点
     def create_connect_ap(self, essid, password, ifconfig=None):
         """AP 模式: 手机和esp32直连(不通过路由)"""
         ap = network.WLAN(network.AP_IF)
@@ -27,7 +29,7 @@ class RobotWifi:
         print("ip:", ip)
         return ip
 
-    def create_connect_route(self, ssid, password, ifconfig=None):
+    def create_connect_route(self, ssid, password, ifconfig=None, timeout=12):
         """STA 模式: esp32连路由，手机连路由"""
         wlan = network.WLAN(network.STA_IF)
         if ifconfig:
@@ -42,13 +44,21 @@ class RobotWifi:
                 print("正在链接...{}".format(i))
                 i += 1
                 time.sleep(1)
+                if i > timeout:
+                    raise OSError(f"WiFi 连接超时, 请检查 WiFi 名称和密码, 并确保连接的是 2.4G WiFi(不支持 5G WiFi)")
         ip = wlan.ifconfig()[0]
         machine.PWM(machine.Pin(2), duty=512)
         print("ip:", ip)
         return ip
 
     def handle_post_request(self, post_data):
-        command = json.loads(post_data).get("command")
+        try:
+            command = json.loads(post_data).get("command")
+        except ValueError as e:
+            err = "JSON 解析错误: " + str(e)
+            print(err)
+            return json.dumps({"status": "400", "msg": err})
+        
         if command:
             try:
                 print(command)
@@ -59,6 +69,8 @@ class RobotWifi:
                 err = "Error executing command:" + str(e)
                 print(err)
                 return json.dumps({"status": "500", "msg": err})
+        else:
+            return json.dumps({"status": "400", "msg": "缺少 command 参数"})
 
     def handle_get_request(self):
         response_headers = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n'
