@@ -14,7 +14,7 @@ class RobotWifi:
             with open(html_path, 'r', encoding='utf-8') as file:
                 self.html = file.read()
         except OSError as e:
-            assert False, f"错误: 无法打开文件 '{html_path}' - {e}. 请不要忘记上传 index.html"
+            assert False, f"错误: 缺少 index.html 文件, 请不要忘记上传"
 
     def create_connect_ap(self, essid, password, ifconfig=None):
         """AP 模式: 手机和esp32直连(不通过路由)"""
